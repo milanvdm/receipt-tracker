@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
-import { Grommet } from 'grommet';
-import { hot } from 'react-hot-loader'
+import { Grommet, grommet } from 'grommet';
+import { hot } from 'react-hot-loader';
+
+import Home from './pages/home';
 
 class App extends Component {
     public render(): JSX.Element {
         return (
-            <Grommet plain>
-                <header className="App-header">
-                    <p>
-            Edit <code>src/App.js</code> and save to reload.
-                    </p>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-            Learn React
-                    </a>
-                </header>
+            <Grommet full theme={grommet}>
+                <Home />
             </Grommet>
         );
     }
