@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'grommet';
 import { Add } from 'grommet-icons';
 
-interface AddButtonProps { label: string, onClick: () => void }
+interface AddButtonProps { label: string; onClick: () => void }
 
 const AddButton = 
     ({
