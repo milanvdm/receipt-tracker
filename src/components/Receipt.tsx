@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid } from 'grommet';
+import { Box } from 'grommet';
 
 import Total from './Total';
 import Categories from './Categories';
@@ -9,7 +9,7 @@ const Receipt = (): JSX.Element =>
     <Box border margin='small' pad='small'>
         <Box direction='row' gap='small'>
             <Categories />
-            <AddButton label='Add Expense' onClick={() => {}} />
+            <AddButton label='Add Expense' onClick={(): void => {}} />
         </Box>
         <Box align='end'>
             <Total value={123} />
