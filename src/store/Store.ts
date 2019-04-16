@@ -1,19 +1,44 @@
-interface ReceiptData { id: number, category?: string, note?: string, price?: number }
+import { observable, action } from 'mobx';
+import uuid from 'uuid/v4';
+
+interface ReceiptData { id: string; category?: string; expenseList: ExpenseData[] }
+
+interface ExpenseData { id: string; note?: string; price?: number }
 
 class Store {
-    private lastReceiptId = 0
 
+    @observable 
     public receiptList: ReceiptData[] = [];
   
-    public addReceipt() {
-        const receiptId = this.lastReceiptId + 1;
-        this.lastReceiptId = receiptId;
-        const receipt = { id: receiptId }
+    @action
+    public addReceipt(): void {
+        const receipt = { id: uuid(), expenseList: [] }
         this.receiptList.push(receipt);
     }
-  }
+
+    @action
+    public updateCategory(receiptId: string, category: string): void {
+
+    }
+
+    @action
+    public addExpense(receiptId: string): void {
+        
+    }
+
+    @action
+    public updateNote(expenseId: string, note: string): void {
+        
+    }
+
+    @action
+    public updatePrice(expenseId: string, price: number): void {
+        
+    }
+}
   
-  export { 
-      Store,
-      ReceiptData
-  }
+export { 
+    Store,
+    ReceiptData,
+    ExpenseData
+}
