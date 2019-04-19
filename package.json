@@ -3,21 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/node": "^11.13.4",
+    "@types/lodash": "^4.14.123",
+    "@types/node": "^11.13.5",
     "@types/react": "^16.8.13",
     "@types/react-dom": "^16.8.4",
-    "grommet": "^2.6.5",
+    "@types/uuid": "^3.4.4",
+    "grommet": "^2.6.6",
     "grommet-icons": "^4.2.0",
+    "immutable": "^4.0.0-rc.12",
+    "lodash": "^4.17.11",
     "mobx": "^5.9.4",
     "mobx-react": "^5.4.3",
     "react": "^16.8.6",
     "react-dom": "npm:@hot-loader/react-dom",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "uuid": "^3.3.2"
   },
   "scripts": {
-    "eslint": "eslint src/**/*.tsx --fix",
+    "eslint": "eslint src/**/*.ts src/**/*.tsx --fix",
     "dev": "parcel ./public/index.html",
-    "build": "parcel build ./public/index.html"
+    "build": "parcel build ./public/index.html --experimental-scope-hoisting"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,10 +48,11 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "parcel-bundler": "^1.12.3",
+    "parcel-plugin-bundle-visualiser": "^1.2.0",
     "prettier": "^1.17.0",
-    "react-hot-loader": "^4.8.3",
-    "tslint": "^5.15.0",
-    "typescript": "^3.4.3",
+    "react-hot-loader": "^4.8.4",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.4",
     "webpack": "^4.30.0"
   }
 }
