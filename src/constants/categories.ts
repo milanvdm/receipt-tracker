@@ -1,7 +1,14 @@
-const categories: string[] = [
+import { List } from 'immutable';
+
+type Category = string
+
+const categories: List<Category> = List([
     "Entertainment",
     "Food",
     "Houseware"
-];
+]);
 
-export default categories
+export {
+    categories,
+    Category
+}

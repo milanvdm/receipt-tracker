@@ -1,44 +1,69 @@
 import { observable, action } from 'mobx';
 import uuid from 'uuid/v4';
+import { Map } from 'immutable'
 
-interface ReceiptData { id: string; category?: string; expenseList: ExpenseData[] }
+import { Category } from '../constants/categories'
 
-interface ExpenseData { id: string; note?: string; price?: number }
+type ReceiptId = string
+type ExpenseId = string
+
+type Note = string
+type Price = number
+
+interface ReceiptData { id: ReceiptId; category?: Category; expenses: Map<ExpenseId, ExpenseData> }
+interface ExpenseData { id: ExpenseId; note?: Note; price?: Price }
 
 class Store {
 
     @observable 
-    public receiptList: ReceiptData[] = [];
+    public receipts: Map<ReceiptId, ReceiptData> = Map<ReceiptId, ReceiptData>();
   
     @action
     public addReceipt(): void {
-        const receipt = { id: uuid(), expenseList: [] }
-        this.receiptList.push(receipt);
+        const id = uuid()
+        const receipt = { id: id, expenses: Map<ReceiptId, ExpenseData>() }
+        this.receipts = this.receipts.set(id, receipt);
     }
 
     @action
-    public updateCategory(receiptId: string, category: string): void {
-
+    public updateCategory(receiptId: ReceiptId, category: Category): void {
+        this.receipts = this.receipts.updateIn(
+            [receiptId, 'category'], 
+            (): Category => category
+        )
     }
 
     @action
-    public addExpense(receiptId: string): void {
-        
+    public addExpense(receiptId: ReceiptId): void {
+        const id = uuid()
+        const expense = { id: id }
+        this.receipts = this.receipts.updateIn(
+            [receiptId, id], 
+            (): ExpenseData => expense
+        )
     }
 
     @action
-    public updateNote(expenseId: string, note: string): void {
-        
+    public updateNote(receiptId: ReceiptId, expenseId: ExpenseId, note: Note): void {
+        this.receipts = this.receipts.updateIn(
+            [receiptId, expenseId], 
+            (): Note => note
+        )
     }
 
     @action
-    public updatePrice(expenseId: string, price: number): void {
-        
+    public updatePrice(receiptId: ReceiptId, expenseId: ExpenseId, price: Price): void {
+        this.receipts = this.receipts.updateIn(
+            [receiptId, expenseId], 
+            (): Price => price
+        )
     }
 }
   
 export { 
     Store,
+    ReceiptId,
     ReceiptData,
+    ExpenseId,
     ExpenseData
 }
