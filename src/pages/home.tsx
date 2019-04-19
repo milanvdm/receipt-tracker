@@ -21,7 +21,13 @@ const Home = ({ store }: HomeProps): JSX.Element =>
             overflow='scroll'
             fill='vertical'
         >
-            <ReceiptList receiptList={store.receiptList} />
+            <ReceiptList
+                receipts={store.receipts.valueSeq().toList()}
+                updateCategory={store.updateCategory}
+                addExpense={store.addExpense}
+                updateNote={store.updateNote}
+                updatePrice={store.updatePrice}
+            />
         </Box>
         <Box
             border='top'
