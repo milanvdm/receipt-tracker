@@ -1,28 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Select } from 'grommet';
+import { observer } from 'mobx-react'
 
-import categories from '../constants/categories';
+import { categories } from '../constants/categories';
 
-class Categories extends Component {
-    public state = { value: [], options: categories }
-
-    public render(): JSX.Element {
-        const { options, value } = this.state;
-        return (
-            <Select
-                placeholder='Select a Category'
-                value={value}
-                size='medium'
-                onSearch={(query: string): void => {
-                    const regexp = new RegExp(query, 'i');
-                    const matchedCategory = categories.filter((category: string): boolean => category.match(regexp));
-                    this.setState({ options: matchedCategory });
-                }}
-                onChange={(event: any): void => this.setState({ value: event.value })}
-                options={options}
-            />
-        );
-    }
+interface CategoriesProps { 
+    receiptId: string; 
+    category?: string;
+    updateCategory: (receiptId: string, category: string) => void; 
 }
 
-export default Categories
+const Categories = ({ receiptId, category, updateCategory }: CategoriesProps): JSX.Element =>
+    <Select
+        placeholder='Select a Category'
+        value={category}
+        size='medium'
+        onChange={(event): void => updateCategory(receiptId, event.value)}
+        options={categories.toJS()}
+    />
+
+export default observer(Categories)
