@@ -2,21 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Select } from 'grommet';
 
-import { ReceiptTrackerState, ReceiptData } from '../store/types';
+import { ReceiptTrackerState } from '../store/types';
 import { updateCategory } from '../store/actions';
 
 import categories from '../constants/categories'
+
+interface LinkStateToProps {
+    category?: string;
+}
+
+interface LinkDispatchToProps {
+    updateCategory: (receiptId: string, category: string) => void; 
+}
 
 interface OwnProps {
     receiptId: string; 
 }
 
-interface StateProps {
-    category?: string;
-    updateCategory: (receiptId: string, category: string) => void; 
-}
-
-type CategoriesProps = OwnProps & StateProps;
+type CategoriesProps = OwnProps & LinkStateToProps & LinkDispatchToProps;
 
 const Categories = ({ receiptId, category, updateCategory }: CategoriesProps): JSX.Element =>
     <Select
@@ -27,13 +30,13 @@ const Categories = ({ receiptId, category, updateCategory }: CategoriesProps): J
         options={categories.toJS()}
     />
 
-const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps) => {
+const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps): LinkStateToProps => {
     return {
         category: state.receipts.get(ownProps.receiptId).category
     }
 }
 
-const mapDispatchToProps = { updateCategory }
+const mapDispatchToProps: LinkDispatchToProps = { updateCategory }
 
 export default connect(
     mapStateToProps,

@@ -7,9 +7,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import ReceiptTracker from './pages/ReceiptTracker';
 import rootReducer from './store/reducers';
-import { ReceiptTrackerState } from './store/types';
 
-const store = createStore<ReceiptTrackerState>(
+const store = createStore(
     rootReducer,
     composeWithDevTools()
 )

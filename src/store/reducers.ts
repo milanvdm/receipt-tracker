@@ -38,7 +38,7 @@ const ReceiptTrackerReducer = (
             return {
                 receipts: state.receipts.updateIn(
                     [action.payload.receiptId, 'expenses'],
-                    (expenses: Map<ExpenseId, ExpenseData>) => expenses.set(id, expense)
+                    (expenses: Map<ExpenseId, ExpenseData>): Map<ExpenseId, ExpenseData> => expenses.set(id, expense)
                 )
             }
         }

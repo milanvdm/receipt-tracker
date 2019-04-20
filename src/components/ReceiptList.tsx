@@ -7,9 +7,11 @@ import { ReceiptData, ReceiptTrackerState } from '../store/types';
 
 import Receipt from './Receipt';
 
-interface ReceiptListProps { 
+interface LinkStateToProps {
     receipts: List<ReceiptData>;
 }
+
+type ReceiptListProps = LinkStateToProps
 
 const ReceiptList = ({ receipts }: ReceiptListProps): JSX.Element =>
     <Box margin='small' >
@@ -26,7 +28,7 @@ const ReceiptList = ({ receipts }: ReceiptListProps): JSX.Element =>
         </Table>
     </Box>
 
-const mapStateToProps = (state: ReceiptTrackerState) => {
+const mapStateToProps = (state: ReceiptTrackerState): LinkStateToProps => {
     return {
         receipts: state.receipts.valueSeq().toList()
     }

@@ -5,19 +5,22 @@ import { Box, TextInput, FormField } from 'grommet';
 import { ReceiptId, ExpenseId, Note, Price, UpdateNoteAction, UpdatePriceAction, ReceiptTrackerState } from '../store/types';
 import { updateNote, updatePrice } from '../store/actions';
 
+interface LinkStateToProps {
+    note?: Note;
+    price?: Price;
+}
+
+interface LinkDispatchToProps {
+    updateNote: (receiptId: ReceiptId, expenseId: ExpenseId, note: Note) => UpdateNoteAction;
+    updatePrice: (receiptId: ReceiptId, expenseId: ExpenseId, price: Price) => UpdatePriceAction;
+}
+
 interface OwnProps {
     id: ExpenseId;
     receiptId: ReceiptId;
 }
 
-interface StateProps {
-    note?: Note;
-    price?: Price;
-    updateNote: (receiptId: ReceiptId, expenseId: ExpenseId, note: Note) => UpdateNoteAction;
-    updatePrice: (receiptId: ReceiptId, expenseId: ExpenseId, price: Price) => UpdatePriceAction;
-}
-
-type ExpenseProps = OwnProps & StateProps
+type ExpenseProps = OwnProps & LinkStateToProps & LinkDispatchToProps;
 
 interface ExpenseState {
     price?: string;
@@ -73,14 +76,14 @@ class Expense extends Component<ExpenseProps, ExpenseState> {
     }
 }
 
-const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps) => {
+const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps): LinkStateToProps => {
     return {
         note: state.receipts.get(ownProps.receiptId).expenses.get(ownProps.id).note,
         price: state.receipts.get(ownProps.receiptId).expenses.get(ownProps.id).price
     }
 }
 
-const mapDispatchToProps = { updateNote, updatePrice }
+const mapDispatchToProps: LinkDispatchToProps = { updateNote, updatePrice }
 
 export default connect(
     mapStateToProps,

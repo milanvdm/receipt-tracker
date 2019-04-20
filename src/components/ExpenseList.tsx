@@ -7,15 +7,15 @@ import { ReceiptId, ReceiptTrackerState, ExpenseData } from '../store/types';
 
 import Expense from './Expense';
 
+interface LinkStateToProps {
+    expenses: List<ExpenseData>;
+}
+
 interface OwnProps {
     receiptId: ReceiptId;
 }
 
-interface StateProps {
-    expenses: List<ExpenseData>;
-}
-
-type ExpenseListProps = OwnProps & StateProps
+type ExpenseListProps = OwnProps & LinkStateToProps
 
 const ExpenseList = ({ receiptId, expenses }: ExpenseListProps): JSX.Element =>
     <Box margin='small' >
@@ -35,7 +35,7 @@ const ExpenseList = ({ receiptId, expenses }: ExpenseListProps): JSX.Element =>
         </Table>
     </Box>
 
-const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps) => {
+const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps): LinkStateToProps => {
     return {
         expenses: state.receipts.get(ownProps.receiptId).expenses.valueSeq().toList()
     }

@@ -11,16 +11,19 @@ import Categories from './Categories';
 import AddButton from './AddButton';
 import ExpenseList from './ExpenseList';
 
+interface LinkStateToProps {
+    total: Price;
+}
+
+interface LinkDispatchToProps {
+    addExpense: (receiptId: ReceiptId) => AddExpenseAction;
+}
+
 interface OwnProps {
     id: ReceiptId;
 }
 
-interface StateProps {
-    total: Price;
-    addExpense: (receiptId: ReceiptId) => AddExpenseAction;
-}
-
-type ReceiptProps = OwnProps & StateProps
+type ReceiptProps = OwnProps & LinkStateToProps & LinkDispatchToProps
 
 const Receipt = ({ id, total, addExpense }: ReceiptProps): JSX.Element => 
     <Box border margin='small' pad='small'>
@@ -34,13 +37,13 @@ const Receipt = ({ id, total, addExpense }: ReceiptProps): JSX.Element =>
         </Box>
     </Box>
 
-const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps) => {
+const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps): LinkStateToProps => {
     return {
         total: sumBy(state.receipts.get(ownProps.id).expenses.valueSeq().toJS(), 'price')
     }
 }
 
-const mapDispatchToProps = { addExpense }
+const mapDispatchToProps: LinkDispatchToProps = { addExpense }
 
 export default connect(
     mapStateToProps,

@@ -10,10 +10,15 @@ import Total from '../components/Total';
 import ReceiptList from '../components/ReceiptList';
 import AddButton from '../components/AddButton';
 
-interface ReceiptTrackerProps {
+interface LinkStateToProps {
     total: Price;
+}
+
+interface LinkDispatchToProps {
     addReceipt: () => AddReceiptAction; 
 }
+
+type ReceiptTrackerProps = LinkStateToProps & LinkDispatchToProps
 
 const ReceiptTracker = ({ total, addReceipt }: ReceiptTrackerProps): JSX.Element =>
     <Box 
@@ -53,13 +58,13 @@ const ReceiptTracker = ({ total, addReceipt }: ReceiptTrackerProps): JSX.Element
         </Box>
     </Box>
 
-const mapStateToProps = (state: ReceiptTrackerState) => {
+const mapStateToProps = (state: ReceiptTrackerState): LinkStateToProps => {
     return {
         total: sumBy(state.receipts.valueSeq().flatMap(receipt => receipt.expenses.valueSeq()).toJS(), 'price')
     }
 }
   
-const mapDispatchToProps = { addReceipt }
+const mapDispatchToProps: LinkDispatchToProps = { addReceipt }
 
 export default connect(
     mapStateToProps,
