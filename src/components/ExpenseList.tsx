@@ -38,8 +38,9 @@ const ExpenseList = ({ receiptId, expenses }: ExpenseListProps): JSX.Element => 
 const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps): LinkStateToProps => {
     return {
         expenses: state.receipts
-            .get(ownProps.receiptId)
-            .expenses.valueSeq()
+            .valueSeq()
+            .filter((receipt): boolean => receipt.id == ownProps.receiptId)
+            .flatMap((receipt): List<ExpenseData> => receipt.expenses.valueSeq().toList())
             .toList(),
     };
 };

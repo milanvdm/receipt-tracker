@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Box } from 'grommet';
 import { sumBy } from 'lodash';
+import { List } from 'immutable';
 
 import { addExpense } from '../store/actions';
-import { ReceiptId, AddExpenseAction, ReceiptTrackerState, Price } from '../store/types';
+import { ReceiptId, AddExpenseAction, ReceiptTrackerState, Price, ExpenseData } from '../store/types';
 
 import Total from './Total';
 import Categories from './Categories';
@@ -42,8 +43,9 @@ const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps): LinkSt
     return {
         total: sumBy(
             state.receipts
-                .get(ownProps.id)
-                .expenses.valueSeq()
+                .valueSeq()
+                .filter((receipt): boolean => receipt.id == ownProps.id)
+                .flatMap((receipt): List<ExpenseData> => receipt.expenses.valueSeq().toList())
                 .toJS(),
             'price',
         ),

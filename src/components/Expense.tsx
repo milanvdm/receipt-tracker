@@ -82,8 +82,8 @@ class Expense extends Component<ExpenseProps, ExpenseState> {
 
 const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps): LinkStateToProps => {
     return {
-        note: state.receipts.get(ownProps.receiptId).expenses.get(ownProps.id).note,
-        price: state.receipts.get(ownProps.receiptId).expenses.get(ownProps.id).price,
+        note: state.receipts.getIn([ownProps.receiptId, 'expenses', ownProps.id, 'note'], ''),
+        price: state.receipts.getIn([ownProps.receiptId, 'expenses', ownProps.id, 'price'], 0),
     };
 };
 

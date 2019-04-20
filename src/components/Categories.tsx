@@ -33,7 +33,7 @@ const Categories = ({ receiptId, category, updateCategory }: CategoriesProps): J
 
 const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps): LinkStateToProps => {
     return {
-        category: state.receipts.get(ownProps.receiptId).category,
+        category: state.receipts.getIn([ownProps.receiptId, 'category'], ''),
     };
 };
 

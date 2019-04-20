@@ -2,8 +2,9 @@ import React from 'react';
 import { Box } from 'grommet';
 import { connect } from 'react-redux';
 import { sumBy } from 'lodash';
+import { List } from 'immutable';
 
-import { AddReceiptAction, Price, ReceiptTrackerState } from '../store/types';
+import { AddReceiptAction, Price, ReceiptTrackerState, ExpenseData } from '../store/types';
 import { addReceipt } from '../store/actions';
 
 import Total from '../components/Total';
@@ -41,7 +42,7 @@ const mapStateToProps = (state: ReceiptTrackerState): LinkStateToProps => {
         total: sumBy(
             state.receipts
                 .valueSeq()
-                .flatMap(receipt => receipt.expenses.valueSeq())
+                .flatMap((receipt): List<ExpenseData> => receipt.expenses.valueSeq().toList())
                 .toJS(),
             'price',
         ),
