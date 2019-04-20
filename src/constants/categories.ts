@@ -1,11 +1,7 @@
 import { List } from 'immutable';
 
-import { Category } from '../store/types'
+import { Category } from '../store/types';
 
-const categories: List<Category> = List([
-    "Entertainment",
-    "Food",
-    "Houseware"
-]);
+const categories: List<Category> = List(['Entertainment', 'Food', 'Houseware']);
 
-export default categories
+export default categories;

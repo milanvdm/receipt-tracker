@@ -1,50 +1,62 @@
-import { 
-    ReceiptId, ExpenseId, Category, Note, Price,
-    ADD_RECEIPT, UPDATE_CATEGORY, ADD_EXPENSE, UPDATE_NOTE, UPDATE_PRICE, 
-    AddReceiptAction, UpdateCategoryAction, AddExpenseAction, UpdateNoteAction, UpdatePriceAction
-} from './types'
+import {
+    ReceiptId,
+    ExpenseId,
+    Category,
+    Note,
+    Price,
+    ADD_RECEIPT,
+    UPDATE_CATEGORY,
+    ADD_EXPENSE,
+    UPDATE_NOTE,
+    UPDATE_PRICE,
+    AddReceiptAction,
+    UpdateCategoryAction,
+    AddExpenseAction,
+    UpdateNoteAction,
+    UpdatePriceAction,
+} from './types';
 
 export const addReceipt = (): AddReceiptAction => {
-    return({ type: ADD_RECEIPT })
-}
+    return { type: ADD_RECEIPT };
+};
 
 export const updateCategory = (receiptId: ReceiptId, category: Category): UpdateCategoryAction => {
-    return({ 
+    return {
         type: UPDATE_CATEGORY,
         payload: {
             receiptId,
-            category
-        }
-    })
-}
+            category,
+        },
+    };
+};
 
 export const addExpense = (receiptId: ReceiptId): AddExpenseAction => {
-    return({ 
+    return {
         type: ADD_EXPENSE,
         payload: {
-            receiptId
-        }
-    })
-}
+            receiptId,
+        },
+    };
+};
 
 export const updateNote = (receiptId: ReceiptId, expenseId: ExpenseId, note: Note): UpdateNoteAction => {
-    return({ 
+    return {
         type: UPDATE_NOTE,
         payload: {
             receiptId,
             expenseId,
-            note
-        }
-    })
-}
+            note,
+        },
+    };
+};
 
 export const updatePrice = (receiptId: ReceiptId, expenseId: ExpenseId, price: Price): UpdatePriceAction => {
-    return({ 
+    return {
         type: UPDATE_PRICE,
         payload: {
             receiptId,
             expenseId,
-            price
-        }
-    })
-}
+            price,
+        },
+    };
+};

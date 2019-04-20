@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Box, TextInput, FormField } from 'grommet';
 
-import { ReceiptId, ExpenseId, Note, Price, UpdateNoteAction, UpdatePriceAction, ReceiptTrackerState } from '../store/types';
+import {
+    ReceiptId,
+    ExpenseId,
+    Note,
+    Price,
+    UpdateNoteAction,
+    UpdatePriceAction,
+    ReceiptTrackerState,
+} from '../store/types';
 import { updateNote, updatePrice } from '../store/actions';
 
 interface LinkStateToProps {
@@ -28,64 +36,60 @@ interface ExpenseState {
 }
 
 class Expense extends Component<ExpenseProps, ExpenseState> {
-
-    private readonly priceErrorMessage: string = 'Provide a number :)'
+    private readonly priceErrorMessage: string = 'Provide a number :)';
 
     public state: ExpenseState = {
-        priceErrorMessage: ''
+        priceErrorMessage: '',
     };
 
     private handlePriceInput = (price: string): void => {
-        const parsedPrice = Number(price)
-        const { id, receiptId, updatePrice } = {...this.props}
+        const parsedPrice = Number(price);
+        const { id, receiptId, updatePrice } = { ...this.props };
         if (parsedPrice != NaN && parsedPrice > 0) {
-            this.setState({ price })
-            updatePrice(receiptId, id, parsedPrice)
-            this.setState({ priceErrorMessage: '' })
+            this.setState({ price });
+            updatePrice(receiptId, id, parsedPrice);
+            this.setState({ priceErrorMessage: '' });
         } else {
-            this.setState({ price })
-            updatePrice(receiptId, id, 0)
-            this.setState({ priceErrorMessage: this.priceErrorMessage })
+            this.setState({ price });
+            updatePrice(receiptId, id, 0);
+            this.setState({ priceErrorMessage: this.priceErrorMessage });
         }
-    }
+    };
 
     public render(): JSX.Element {
         return (
-            <Box 
-                direction='row'
-                gap='small'
-            >
+            <Box direction="row" gap="small">
                 <FormField>
-                    <TextInput 
-                        placeholder='Add a note' 
-                        value={this.props.note} 
-                        onChange={(event): UpdateNoteAction => this.props.updateNote(
-                            this.props.receiptId, this.props.id, event.target.value
-                        )} 
+                    <TextInput
+                        placeholder="Add a note"
+                        value={this.props.note}
+                        onChange={(event): UpdateNoteAction =>
+                            this.props.updateNote(this.props.receiptId, this.props.id, event.target.value)
+                        }
                     />
                 </FormField>
                 <FormField error={this.state.priceErrorMessage}>
-                    <TextInput 
-                        placeholder='Add a price' 
-                        value={this.state.price || ''} 
+                    <TextInput
+                        placeholder="Add a price"
+                        value={this.state.price || ''}
                         onChange={(event): void => this.handlePriceInput(event.target.value)}
                     />
                 </FormField>
             </Box>
-        )
+        );
     }
 }
 
 const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps): LinkStateToProps => {
     return {
         note: state.receipts.get(ownProps.receiptId).expenses.get(ownProps.id).note,
-        price: state.receipts.get(ownProps.receiptId).expenses.get(ownProps.id).price
-    }
-}
+        price: state.receipts.get(ownProps.receiptId).expenses.get(ownProps.id).price,
+    };
+};
 
-const mapDispatchToProps: LinkDispatchToProps = { updateNote, updatePrice }
+const mapDispatchToProps: LinkDispatchToProps = { updateNote, updatePrice };
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
-)(Expense)
+    mapDispatchToProps,
+)(Expense);

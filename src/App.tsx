@@ -8,10 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import ReceiptTracker from './pages/ReceiptTracker';
 import rootReducer from './store/reducers';
 
-const store = createStore(
-    rootReducer,
-    composeWithDevTools()
-)
+const store = createStore(rootReducer, composeWithDevTools());
 
 class App extends Component {
     public render(): JSX.Element {
@@ -25,4 +22,4 @@ class App extends Component {
     }
 }
 
-export default hot(module)(App)
+export default hot(module)(App);

@@ -1,24 +1,32 @@
-import { Map } from 'immutable'
+import { Map } from 'immutable';
 
-export type ReceiptId = string
-export type ExpenseId = string
+export type ReceiptId = string;
+export type ExpenseId = string;
 
-export type Category = string
-export type Note = string
-export type Price = number
+export type Category = string;
+export type Note = string;
+export type Price = number;
 
-export interface ReceiptData { id: ReceiptId; category?: Category; expenses: Map<ExpenseId, ExpenseData> }
-export interface ExpenseData { id: ExpenseId; note?: Note; price?: Price }
+export interface ReceiptData {
+    id: ReceiptId;
+    category?: Category;
+    expenses: Map<ExpenseId, ExpenseData>;
+}
+export interface ExpenseData {
+    id: ExpenseId;
+    note?: Note;
+    price?: Price;
+}
 
 export interface ReceiptTrackerState {
     readonly receipts: Map<ReceiptId, ReceiptData>;
 }
 
-export const ADD_RECEIPT = 'ADD_RECEIPT'
-export const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
-export const ADD_EXPENSE = 'ADD_EXPENSE'
-export const UPDATE_NOTE = 'UPDATE_NOTE'
-export const UPDATE_PRICE = 'UPDATE_PRICE'
+export const ADD_RECEIPT = 'ADD_RECEIPT';
+export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const UPDATE_NOTE = 'UPDATE_NOTE';
+export const UPDATE_PRICE = 'UPDATE_PRICE';
 
 export interface AddReceiptAction {
     type: typeof ADD_RECEIPT;
@@ -57,5 +65,9 @@ export interface UpdatePriceAction {
     };
 }
 
-export type ReceiptTrackerActionType = 
-    AddReceiptAction | UpdateCategoryAction | AddExpenseAction | UpdateNoteAction | UpdatePriceAction
+export type ReceiptTrackerActionType =
+    | AddReceiptAction
+    | UpdateCategoryAction
+    | AddExpenseAction
+    | UpdateNoteAction
+    | UpdatePriceAction;

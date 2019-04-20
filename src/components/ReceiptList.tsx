@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Box , Table, TableBody, TableRow, TableCell } from 'grommet';
+import { Box, Table, TableBody, TableRow, TableCell } from 'grommet';
 import { List } from 'immutable';
 
 import { ReceiptData, ReceiptTrackerState } from '../store/types';
@@ -11,29 +11,30 @@ interface LinkStateToProps {
     receipts: List<ReceiptData>;
 }
 
-type ReceiptListProps = LinkStateToProps
+type ReceiptListProps = LinkStateToProps;
 
-const ReceiptList = ({ receipts }: ReceiptListProps): JSX.Element =>
-    <Box margin='small' >
-        <Table alignSelf='center'>
+const ReceiptList = ({ receipts }: ReceiptListProps): JSX.Element => (
+    <Box margin="small">
+        <Table alignSelf="center">
             <TableBody>
-                {receipts.map((receipt): JSX.Element =>
-                    <TableRow key={receipt.id}>
-                        <TableCell>
-                            <Receipt id={receipt.id} />
-                        </TableCell>
-                    </TableRow>
+                {receipts.map(
+                    (receipt): JSX.Element => (
+                        <TableRow key={receipt.id}>
+                            <TableCell>
+                                <Receipt id={receipt.id} />
+                            </TableCell>
+                        </TableRow>
+                    ),
                 )}
             </TableBody>
         </Table>
     </Box>
+);
 
 const mapStateToProps = (state: ReceiptTrackerState): LinkStateToProps => {
     return {
-        receipts: state.receipts.valueSeq().toList()
-    }
-}
+        receipts: state.receipts.valueSeq().toList(),
+    };
+};
 
-export default connect(
-    mapStateToProps
-)(ReceiptList)
+export default connect(mapStateToProps)(ReceiptList);
