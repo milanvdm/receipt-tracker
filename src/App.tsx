@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
 import { Grommet, grommet } from 'grommet';
 import { hot } from 'react-hot-loader';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import Home from './pages/Home';
-import { Store } from './store/Store';
+import ReceiptTracker from './pages/ReceiptTracker';
+import rootReducer from './store/reducers';
+import { ReceiptTrackerState } from './store/types';
 
-const store = new Store();
+const store = createStore<ReceiptTrackerState>(
+    rootReducer,
+    composeWithDevTools()
+)
 
 class App extends Component {
     public render(): JSX.Element {
         return (
-            <Grommet full theme={grommet}>
-                <Home store={store} />
-            </Grommet>
+            <Provider store={store}>
+                <Grommet full theme={grommet}>
+                    <ReceiptTracker />
+                </Grommet>
+            </Provider>
         );
     }
 }

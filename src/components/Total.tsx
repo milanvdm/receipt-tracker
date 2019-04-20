@@ -2,7 +2,9 @@ import React from 'react';
 import { Box, Text } from 'grommet';
 import { Currency } from 'grommet-icons';
 
-interface TotalProps { value: number }
+import { Price } from '../store/types';
+
+interface TotalProps { value: Price }
 
 const Total = ({ value }: TotalProps): JSX.Element =>
     <Box 
@@ -12,7 +14,7 @@ const Total = ({ value }: TotalProps): JSX.Element =>
         align='center'
     >
         <Currency color='neutral-1' size='medium' /> 
-        <Text size='large' weight='bold'>{value}</Text>
+        <Text size='large' weight='bold'>{value || 0}</Text>
     </Box>
 
 export default Total

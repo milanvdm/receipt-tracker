@@ -1,39 +1,48 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Box } from 'grommet';
-import { observer } from 'mobx-react'
-import { List } from 'immutable';
+import { sumBy } from 'lodash';
+
+import { addExpense } from '../store/actions';
+import { ReceiptId, AddExpenseAction, ReceiptTrackerState, Price } from '../store/types';
 
 import Total from './Total';
 import Categories from './Categories';
 import AddButton from './AddButton';
-import { ReceiptId, ExpenseId, ExpenseData } from '../store/Store'
 import ExpenseList from './ExpenseList';
 
-interface ReceiptProps { 
+interface OwnProps {
     id: ReceiptId;
-    category?: string;
-    expenses: List<ExpenseData>;
-    addExpense: (receiptId: ReceiptId) => void;
-    updateCategory: (receiptId: ReceiptId, category: string) => void;
-    updateNote: (receiptId: ReceiptId, expenseId: ExpenseId, note: string) => void;
-    updatePrice: (receiptId: ReceiptId, expenseId: ExpenseId, price: number) => void;
 }
 
-const Receipt = ({ id, category, expenses, addExpense, updateCategory, updateNote, updatePrice }: ReceiptProps): JSX.Element => 
+interface StateProps {
+    total: Price;
+    addExpense: (receiptId: ReceiptId) => AddExpenseAction;
+}
+
+type ReceiptProps = OwnProps & StateProps
+
+const Receipt = ({ id, total, addExpense }: ReceiptProps): JSX.Element => 
     <Box border margin='small' pad='small'>
-        <Box direction='row' gap='small'>
-            <Categories receiptId={id} category={category} updateCategory={updateCategory} />
-            <AddButton label='Add Expense' onClick={(): void => addExpense(id)} />
+        <Box direction='row' margin='medium' gap='small'>
+            <Categories receiptId={id} />
+            <AddButton label='Add Expense' onClick={(): AddExpenseAction => addExpense(id)} />
         </Box>
-        <ExpenseList
-            receiptId={id}
-            expenses={expenses}
-            updateNote={updateNote}
-            updatePrice={updatePrice}
-        />
+        <ExpenseList receiptId={id} />
         <Box align='end'>
-            <Total value={123} />
+            <Total value={total} />
         </Box>
     </Box>
 
-export default observer(Receipt)
+const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps) => {
+    return {
+        total: sumBy(state.receipts.get(ownProps.id).expenses.valueSeq().toJS(), 'price')
+    }
+}
+
+const mapDispatchToProps = { addExpense }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Receipt)

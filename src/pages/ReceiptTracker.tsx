@@ -1,14 +1,21 @@
 import React from 'react';
 import { Box } from 'grommet';
+import { connect } from 'react-redux';
+import { sumBy } from 'lodash';
+
+import { AddReceiptAction, Price, ReceiptTrackerState } from '../store/types'
+import { addReceipt } from '../store/actions'
 
 import Total from '../components/Total';
 import ReceiptList from '../components/ReceiptList';
 import AddButton from '../components/AddButton';
-import { Store } from '../store/Store'
 
-interface HomeProps { store: Store }
+interface ReceiptTrackerProps {
+    total: Price;
+    addReceipt: () => AddReceiptAction; 
+}
 
-const Home = ({ store }: HomeProps): JSX.Element =>
+const ReceiptTracker = ({ total, addReceipt }: ReceiptTrackerProps): JSX.Element =>
     <Box 
         background='light-4'
         border 
@@ -21,13 +28,7 @@ const Home = ({ store }: HomeProps): JSX.Element =>
             overflow='scroll'
             fill='vertical'
         >
-            <ReceiptList
-                receipts={store.receipts.valueSeq().toList()}
-                updateCategory={store.updateCategory}
-                addExpense={store.addExpense}
-                updateNote={store.updateNote}
-                updatePrice={store.updatePrice}
-            />
+            <ReceiptList />
         </Box>
         <Box
             border='top'
@@ -40,16 +41,27 @@ const Home = ({ store }: HomeProps): JSX.Element =>
                 align='start'
                 pad={{left: 'medium'}}
             >
-                <AddButton label='Add Receipt' onClick={(): void => store.addReceipt()} />
+                <AddButton label='Add Receipt' onClick={(): AddReceiptAction => addReceipt()} />
             </Box>
             <Box
                 flex='grow'
                 align='end'
                 pad={{right: 'medium', bottom: 'small', top: 'small'}}
             >
-                <Total value={123} />
+                <Total value={total} />
             </Box>
         </Box>
     </Box>
 
-export default Home
+const mapStateToProps = (state: ReceiptTrackerState) => {
+    return {
+        total: sumBy(state.receipts.valueSeq().flatMap(receipt => receipt.expenses.valueSeq()).toJS(), 'price')
+    }
+}
+  
+const mapDispatchToProps = { addReceipt }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ReceiptTracker)

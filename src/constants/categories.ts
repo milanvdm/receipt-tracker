@@ -1,6 +1,6 @@
 import { List } from 'immutable';
 
-type Category = string
+import { Category } from '../store/types'
 
 const categories: List<Category> = List([
     "Entertainment",
@@ -8,7 +8,4 @@ const categories: List<Category> = List([
     "Houseware"
 ]);
 
-export {
-    categories,
-    Category
-}
+export default categories

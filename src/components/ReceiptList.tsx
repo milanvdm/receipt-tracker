@@ -1,35 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Box , Table, TableBody, TableRow, TableCell } from 'grommet';
-import { observer } from 'mobx-react'
 import { List } from 'immutable';
 
+import { ReceiptData, ReceiptTrackerState } from '../store/types';
+
 import Receipt from './Receipt';
-import { ReceiptId, ReceiptData, ExpenseId } from '../store/Store'
 
 interface ReceiptListProps { 
     receipts: List<ReceiptData>;
-    addExpense: (receiptId: ReceiptId) => void;
-    updateCategory: (receiptId: ReceiptId, category: string) => void;
-    updateNote: (receiptId: ReceiptId, expenseId: ExpenseId, note: string) => void;
-    updatePrice: (receiptId: ReceiptId, expenseId: ExpenseId, price: number) => void;
 }
 
-const ReceiptList = ({ receipts, addExpense, updateCategory, updateNote, updatePrice }: ReceiptListProps): JSX.Element =>
+const ReceiptList = ({ receipts }: ReceiptListProps): JSX.Element =>
     <Box margin='small' >
         <Table alignSelf='center'>
             <TableBody>
                 {receipts.map((receipt): JSX.Element =>
                     <TableRow key={receipt.id}>
                         <TableCell>
-                            <Receipt 
-                                id={receipt.id} 
-                                category={receipt.category}
-                                expenses={receipt.expenses.valueSeq().toList()}
-                                addExpense={addExpense}
-                                updateCategory={updateCategory}
-                                updateNote={updateNote}
-                                updatePrice={updatePrice}
-                            />
+                            <Receipt id={receipt.id} />
                         </TableCell>
                     </TableRow>
                 )}
@@ -37,4 +26,12 @@ const ReceiptList = ({ receipts, addExpense, updateCategory, updateNote, updateP
         </Table>
     </Box>
 
-export default observer(ReceiptList)
+const mapStateToProps = (state: ReceiptTrackerState) => {
+    return {
+        receipts: state.receipts.valueSeq().toList()
+    }
+}
+
+export default connect(
+    mapStateToProps
+)(ReceiptList)

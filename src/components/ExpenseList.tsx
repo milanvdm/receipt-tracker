@@ -1,19 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Box , Table, TableBody, TableRow, TableCell } from 'grommet';
-import { observer } from 'mobx-react'
 import { List } from 'immutable';
 
-import Expense from './Expense';
-import { ReceiptId, ExpenseId, ExpenseData } from '../store/Store'
+import { ReceiptId, ReceiptTrackerState, ExpenseData } from '../store/types';
 
-interface ExpenseListProps {
+import Expense from './Expense';
+
+interface OwnProps {
     receiptId: ReceiptId;
-    expenses: List<ExpenseData>;
-    updateNote: (receiptId: ReceiptId, expenseId: ExpenseId, note: string) => void;
-    updatePrice: (receiptId: ReceiptId, expenseId: ExpenseId, price: number) => void;
 }
 
-const ExpenseList = ({ receiptId, expenses, updateNote, updatePrice }: ExpenseListProps): JSX.Element =>
+interface StateProps {
+    expenses: List<ExpenseData>;
+}
+
+type ExpenseListProps = OwnProps & StateProps
+
+const ExpenseList = ({ receiptId, expenses }: ExpenseListProps): JSX.Element =>
     <Box margin='small' >
         <Table alignSelf='center'>
             <TableBody>
@@ -23,10 +27,6 @@ const ExpenseList = ({ receiptId, expenses, updateNote, updatePrice }: ExpenseLi
                             <Expense 
                                 id={expense.id} 
                                 receiptId={receiptId}
-                                note={expense.note} 
-                                price={expense.price}
-                                updateNote={updateNote}
-                                updatePrice={updatePrice}
                             />
                         </TableCell>
                     </TableRow>
@@ -35,4 +35,12 @@ const ExpenseList = ({ receiptId, expenses, updateNote, updatePrice }: ExpenseLi
         </Table>
     </Box>
 
-export default observer(ExpenseList)
+const mapStateToProps = (state: ReceiptTrackerState, ownProps: OwnProps) => {
+    return {
+        expenses: state.receipts.get(ownProps.receiptId).expenses.valueSeq().toList()
+    }
+}
+
+export default connect(
+    mapStateToProps
+)(ExpenseList)
