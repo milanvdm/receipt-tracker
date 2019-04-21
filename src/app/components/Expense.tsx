@@ -36,6 +36,7 @@ interface ExpenseState {
 }
 
 class Expense extends Component<ExpenseProps, ExpenseState> {
+    private readonly allowedDelimiter = ','
     private readonly priceErrorMessage: string = 'Provide a number :)';
 
     public state: ExpenseState = {
@@ -43,7 +44,7 @@ class Expense extends Component<ExpenseProps, ExpenseState> {
     };
 
     private handlePriceInput = (price: string): void => {
-        const parsedPrice = Number(price);
+        const parsedPrice = Number(price.replace(this.allowedDelimiter, '.'));
         const { id, receiptId, updatePrice } = { ...this.props };
         if (parsedPrice != NaN && parsedPrice > 0) {
             this.setState({ price });
