@@ -1,6 +1,6 @@
+import { hot } from 'react-hot-loader';
 import React, { Component } from 'react';
 import { Grommet, grommet } from 'grommet';
-import { hot } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
