@@ -19,10 +19,7 @@
     },
     "exclude": [
       "node_modules",
-      "build",
-      "scripts",
-      "acceptance-tests",
-      "jest"
+      "build"
     ],
     "types": [
       "typePatches"

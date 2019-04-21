@@ -4,9 +4,10 @@ module.exports = {
         'prettier/react',
         'plugin:@typescript-eslint/recommended',
         'plugin:prettier/recommended',
-        'plugin:react/recommended'
+        'plugin:react/recommended',
+        'plugin:jest/recommended'
     ],
-    plugins: ['@typescript-eslint', 'react'],
+    plugins: ['@typescript-eslint', 'react', 'jest'],
     settings: {
       react: {
         version: 'detect'
