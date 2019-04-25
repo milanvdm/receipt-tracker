@@ -12,7 +12,7 @@ import Categories from '../../app/components/Categories';
 
 afterEach(cleanup);
 
-test('can render a category selector', () => {
+test('Categories correctly follows the store state', () => {
     const id = '1';
     const receipt: ReceiptData = { id: id, category: 'food', expenses: Map() };
     const initialState: ReceiptTrackerState = {

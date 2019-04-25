@@ -12,7 +12,7 @@ import ReceiptList from '../../app/components/ReceiptList';
 
 afterEach(cleanup);
 
-test('can render a list of receipts', () => {
+test('ReceiptList correctly follows the store state', () => {
     const receipts: Map<string, ReceiptData> = List([...Array(5)].keys())
         .map((id: number): ReceiptData => ({ id: id.toString(), category: 'food', expenses: Map() }))
         .toMap()

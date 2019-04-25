@@ -5,7 +5,7 @@ import AddButton from '../../app/components/AddButton';
 
 afterEach(cleanup);
 
-test('can render a simple add button', () => {
+test('AddButton component correcly clicks', () => {
     var counter = 0;
     const { getByText } = render(<AddButton label="+" onClick={(): number => (counter = counter + 1)} />);
     fireEvent.click(getByText('+'));
