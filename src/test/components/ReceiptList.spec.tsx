@@ -16,7 +16,7 @@ test('ReceiptList correctly follows the store state', () => {
     const receipts: Map<string, ReceiptData> = List([...Array(5)].keys())
         .map((id: number): ReceiptData => ({ id: id.toString(), category: 'food', expenses: Map() }))
         .toMap()
-        .mapKeys((id: number): string => id.toString())
+        .mapKeys((id: number): string => id.toString());
 
     const initialState: ReceiptTrackerState = {
         receipts: receipts,

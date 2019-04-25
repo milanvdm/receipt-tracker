@@ -16,15 +16,15 @@ test('ExpenseList correctly follows the store state', () => {
     const expenses: Map<string, ExpenseData> = List([...Array(5)].keys())
         .map((id: number): ExpenseData => ({ id: id.toString() }))
         .toMap()
-        .mapKeys((id: number): string => id.toString())
+        .mapKeys((id: number): string => id.toString());
 
     const receipts: Map<string, ReceiptData> = List([...Array(2)].keys())
         .map((id: number): ReceiptData => ({ id: id.toString(), category: 'food', expenses: expenses }))
         .toMap()
-        .mapKeys((id: number): string => id.toString())
+        .mapKeys((id: number): string => id.toString());
 
     const initialState: ReceiptTrackerState = {
-        receipts: receipts
+        receipts: receipts,
     };
 
     const store = createStore(rootReducer, initialState);

@@ -9,12 +9,12 @@ test('Total correctly shows a number', () => {
     const { getByText } = render(<Total value={10} />);
     const totalElement = getByText('10');
 
-    expect(totalElement).toBeDefined;
+    expect(totalElement).toBeDefined();
 });
 
 test('Total correctly shows undefined as 0', () => {
-    const { getByText } = render(<Total value={undefined as unknown as number} />);
+    const { getByText } = render(<Total value={(undefined as unknown) as number} />);
     const totalElement = getByText('0');
 
-    expect(totalElement).toBeDefined;
+    expect(totalElement).toBeDefined();
 });

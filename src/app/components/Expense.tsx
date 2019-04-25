@@ -36,7 +36,7 @@ interface ExpenseState {
 }
 
 class Expense extends Component<ExpenseProps, ExpenseState> {
-    private readonly allowedDelimiter = ','
+    private readonly allowedDelimiter = ',';
     private readonly priceErrorMessage: string = 'Provide a number :)';
 
     public state: ExpenseState = {

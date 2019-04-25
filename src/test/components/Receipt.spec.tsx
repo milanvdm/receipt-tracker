@@ -24,11 +24,12 @@ test('Receipt correctly follows the store state', () => {
 
     fireEvent.click(getByText('Add Expense'));
 
-    const expenses: List<ExpenseData> = store.getState().receipts
-        .valueSeq()
+    const expenses: List<ExpenseData> = store
+        .getState()
+        .receipts.valueSeq()
         .filter((receipt): boolean => receipt.id == id)
         .flatMap((receipt): List<ExpenseData> => receipt.expenses.valueSeq().toList())
-        .toList()
+        .toList();
 
     expect(expenses.size).toBe(1);
 });
@@ -37,22 +38,22 @@ test('Receipt correctly shows the sum of its expenses', () => {
     const expenses: Map<string, ExpenseData> = List([...Array(5)].keys())
         .map((id: number): ExpenseData => ({ id: id.toString(), price: 5 }))
         .toMap()
-        .mapKeys((id: number): string => id.toString())
+        .mapKeys((id: number): string => id.toString());
 
     const receipts: Map<string, ReceiptData> = List([...Array(2)].keys())
         .map((id: number): ReceiptData => ({ id: id.toString(), category: 'food', expenses: expenses }))
         .toMap()
-        .mapKeys((id: number): string => id.toString())
+        .mapKeys((id: number): string => id.toString());
 
     const initialState: ReceiptTrackerState = {
-        receipts: receipts
+        receipts: receipts,
     };
 
     const store = createStore(rootReducer, initialState);
 
     const { getByText } = renderWithRedux(store, <Receipt id={'0'} />);
-    
+
     const total = getByText((5 * 5).toString());
 
-    expect(total).toBeDefined;
+    expect(total).toBeDefined();
 });
