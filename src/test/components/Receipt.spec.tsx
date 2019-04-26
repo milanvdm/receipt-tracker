@@ -11,7 +11,7 @@ import Receipt from '../../app/components/Receipt';
 
 afterEach(cleanup);
 
-test('Receipt correctly follows the store state', () => {
+test('Receipt correctly follows the store state', (): void => {
     const id = '1';
     const receipt: ReceiptData = { id: id, category: 'food', expenses: Map() };
     const initialState: ReceiptTrackerState = {
@@ -34,7 +34,7 @@ test('Receipt correctly follows the store state', () => {
     expect(expenses.size).toBe(1);
 });
 
-test('Receipt correctly shows the sum of its expenses', () => {
+test('Receipt correctly shows the sum of its expenses', (): void => {
     const expenses: Map<string, ExpenseData> = List([...Array(5)].keys())
         .map((id: number): ExpenseData => ({ id: id.toString(), price: 5 }))
         .toMap()

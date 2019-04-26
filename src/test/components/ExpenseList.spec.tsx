@@ -12,7 +12,7 @@ import ExpenseList from '../../app/components/ExpenseList';
 
 afterEach(cleanup);
 
-test('ExpenseList correctly follows the store state', () => {
+test('ExpenseList correctly follows the store state', (): void => {
     const expenses: Map<string, ExpenseData> = List([...Array(5)].keys())
         .map((id: number): ExpenseData => ({ id: id.toString() }))
         .toMap()
