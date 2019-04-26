@@ -40,6 +40,7 @@ class Expense extends Component<ExpenseProps, ExpenseState> {
     private readonly priceErrorMessage: string = 'Provide a number :)';
 
     public state: ExpenseState = {
+        price: String(this.props.price),
         priceErrorMessage: '',
     };
 
