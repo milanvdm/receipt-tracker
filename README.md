@@ -16,8 +16,6 @@ Build a production package with `yarn run build`.
 
 ## Bugs
 
-- Parcel and Grommet currently don't properly work together when tree-shaking is used: https://github.com/grommet/grommet/issues/3021. This causes the build package to contain all icons from `grommet-icons` increasing the size to over 4MB (800kb gzipped).
-
 - `ExpenseList` and `ReceiptList` don't sort, so a newly added `Receipt` or `Expense` can appear anywhere in the rendered list. (Fix: order on creation time or monotonically increasing id).
 
 ## Improvements

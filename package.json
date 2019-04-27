@@ -19,8 +19,7 @@
     "prettier": "prettier --write --check src/**/*.ts --check src/**/*.tsx",
     "test": "jest",
     "dev": "parcel ./public/index.html",
-    "build": "parcel build ./public/index.html",
-    "build-buggy": "parcel build ./public/index.html --experimental-scope-hoisting"
+    "build": "parcel build ./public/index.html --experimental-scope-hoisting"
   },
   "browserslist": [
     ">0.2%",
@@ -29,26 +28,26 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "@hot-loader/react-dom": "^16.8.6",
     "@types/jest": "^24.0.11",
     "@types/lodash": "^4.14.123",
-    "@types/node": "^11.13.6",
+    "@types/node": "^11.13.8",
     "@types/react": "^16.8.14",
     "@types/react-dom": "^16.8.4",
     "@types/react-redux": "^7.0.8",
     "@types/uuid": "^3.4.4",
-    "@typescript-eslint/eslint-plugin": "^1.6.0",
-    "@typescript-eslint/parser": "^1.6.0",
+    "@typescript-eslint/eslint-plugin": "^1.7.0",
+    "@typescript-eslint/parser": "^1.7.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.7.1",
     "babel-loader": "^8.0.5",
     "eslint": "^5.16.0",
     "eslint-config-last": "^0.0.5",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-jest": "^22.4.1",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-jest": "^22.5.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "jest": "^24.7.1",
@@ -56,10 +55,10 @@
     "parcel-plugin-bundle-visualiser": "^1.2.0",
     "prettier": "^1.17.0",
     "react-hot-loader": "^4.8.4",
-    "react-testing-library": "^6.1.2",
+    "react-testing-library": "^7.0.0",
     "redux-devtools-extension": "^2.13.8",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.4.4",
+    "typescript": "^3.4.5",
     "webpack": "^4.30.0"
   }
 }
