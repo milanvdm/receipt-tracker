@@ -22,10 +22,10 @@ test('Expense correctly follows the store state', (): void => {
 
     const store = createStore(rootReducer, initialState);
 
-    const { getByValue } = renderWithRedux(store, <Expense receiptId={receiptId} id={expenseId} />);
+    const { getByDisplayValue } = renderWithRedux(store, <Expense receiptId={receiptId} id={expenseId} />);
 
-    const note = getByValue('test');
-    const price = getByValue('123');
+    const note = getByDisplayValue('test');
+    const price = getByDisplayValue('123');
 
     expect(note).toBeDefined();
     expect(price).toBeDefined();
