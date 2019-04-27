@@ -107,7 +107,7 @@ test('Expense correctly shows an error on a non-number price', (): void => {
 
     fireEvent.change(getByPlaceholderText('Add a price'), { target: { value: '123b' } });
 
-    const errorMessage = getByText('Provide a number :)');
+    const errorMessage = getByText('Provide a >0 number :)');
 
     expect(errorMessage).toBeDefined();
 });

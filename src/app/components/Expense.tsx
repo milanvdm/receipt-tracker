@@ -37,10 +37,10 @@ interface ExpenseState {
 
 class Expense extends Component<ExpenseProps, ExpenseState> {
     private readonly allowedDelimiter = ',';
-    private readonly priceErrorMessage: string = 'Provide a number :)';
+    private readonly priceErrorMessage: string = 'Provide a >0 number :)';
 
     public state: ExpenseState = {
-        price: String(this.props.price),
+        price: this.props.price == 0 ? '' : String(this.props.price),
         priceErrorMessage: '',
     };
 
