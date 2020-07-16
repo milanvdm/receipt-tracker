@@ -6,7 +6,7 @@
     "grommet": "^2.6.6",
     "grommet-icons": "^4.2.0",
     "immutable": "^4.0.0-rc.12",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "react": "^16.8.6",
     "react-dom": "npm:@hot-loader/react-dom",
     "react-redux": "^7.0.2",
